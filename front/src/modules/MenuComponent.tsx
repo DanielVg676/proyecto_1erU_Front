@@ -1,12 +1,14 @@
-import { DashboardOutlined, UserOutlined, BarChartOutlined } from "@ant-design/icons";
+import { DashboardOutlined, UserOutlined, BarChartOutlined, PieChartOutlined, TeamOutlined, FileTextOutlined, ShoppingCartOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Icons = {
-    DashboardOutlined,
-    UserOutlined,
-    BarChartOutlined,
+    PieChartOutlined,
+    TeamOutlined,
+    FileTextOutlined,
+    ShoppingCartOutlined,
+    AppstoreOutlined,
 };
 
 function MenuComponents() {
@@ -18,21 +20,33 @@ function MenuComponents() {
         {
             title: "Dashboard",
             path: "/dashboard",
-            icon: "DashboardOutlined",
-            roles: ["665a1f2b40fd3a12b3e77611"]
+            icon: "PieChartOutlined",
+            roles: ["665a1f2b40fd3a12b3e77611"],
         },
         {
             title: "Usuarios",
             path: "/users",
-            icon: "UserOutlined",
-            roles: ["665a1f2b40fd3a12b3e77612"]
+            icon: "TeamOutlined",
+            roles: ["665a1f2b40fd3a12b3e77612"],
         },
         {
             title: "Reportes",
             path: "/reports",
-            icon: "BarChartOutlined",
-            roles: ["665a1f2b40fd3a12b3e77611", "665a1f2b40fd3a12b3e77612"]
-        }
+            icon: "FileTextOutlined",
+            roles: ["665a1f2b40fd3a12b3e77611", "665a1f2b40fd3a12b3e77612"],
+        },
+        {
+            title: "Ordenes",
+            path: "/orders",
+            icon: "ShoppingCartOutlined",
+            roles: ["665a1f2b40fd3a12b3e77611", "665a1f2b40fd3a12b3e77612"],
+        },
+        {
+            title: "Productos",
+            path: "/products",
+            icon: "AppstoreOutlined",
+            roles: ["665a1f2b40fd3a12b3e77611", "665a1f2b40fd3a12b3e77612"],
+        },
     ];
 
     useEffect(() => {
@@ -59,7 +73,7 @@ function MenuComponents() {
             selectedKeys={[location.pathname]}
             items={renderMenu()}
             onClick={({ key }) => navigate(key)}
-            style={{height: '100%', borderRight: 0}}
+            style={{ height: '100%', borderRight: 0 }}
 
         />
     );

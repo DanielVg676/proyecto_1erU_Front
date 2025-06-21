@@ -1,5 +1,7 @@
 import Dashboard from "../modules/dashboard/Dashboard";
+import OrderData from "../modules/order/OrderData";
 import ProductData from "../modules/products/ProductData";
+import ReportData from "../modules/reports/ReportData";
 import UserForm from "../modules/user/UserForm";
 
 export interface AppRoute {
@@ -26,7 +28,7 @@ const routes: AppRoute[] = [
   },
   {
     path: '/orders',
-    element: <UserForm />,
+    element: <OrderData />,
     label: 'Usuarios',
     icon: 'UserOutlined',
   },
@@ -38,7 +40,7 @@ const routes: AppRoute[] = [
   },
   {
     path: '/reports',
-    element: <ProductData />,
+    element: <ReportData />,
     label: 'Productos',
     icon: 'UserOutlined',
   },
