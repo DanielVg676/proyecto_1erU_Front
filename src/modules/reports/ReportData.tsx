@@ -31,9 +31,18 @@ const mockReports = [
   },
 ];
 
+type Report = {
+  id: string;
+  type: string;
+  description: string;
+  date: string;
+  responsible: string;
+  status: string;
+};
+
 function ReportData() {
-  const [reports, setReports] = useState([]);
-  const [filteredReports, setFilteredReports] = useState([]);
+  const [reports, setReports] = useState<Report[]>([]);
+  const [filteredReports, setFilteredReports] = useState<Report[]>([]);
 
   useEffect(() => {
     // Simular carga de datos

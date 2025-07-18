@@ -5,11 +5,25 @@ import UserModalForm from "./UserModalForm"; // Ajusta esta ruta si es necesario
 
 const { Search } = Input;
 
+type Role = {
+    type: string;
+    // Agrega más propiedades si es necesario
+};
+
+type User = {
+    _id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    role?: Role[]; // Cambiado de 'any' a 'Role[]'
+    status?: boolean;
+};
+
 export default function UserData() {
-    const [users, setUsers] = useState([]);
-    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
+    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMode, setModalMode] = useState<"add" | "edit">("add");
 
@@ -17,8 +31,8 @@ export default function UserData() {
         setLoading(true);
         try {
             const res = await axios.get("http://localhost:3000/user/getAllUsers");
-            setUsers(res.data);
-            setFilteredUsers(res.data);
+            setUsers(res.data as User[]);
+            setFilteredUsers(res.data as User[]);
         } catch (error) {
             message.error("Error al obtener usuarios");
             console.error(error);
@@ -33,7 +47,7 @@ export default function UserData() {
     }, []);
 
     const handleSearch = (value: string) => {
-        const filtered = users.filter((user: any) =>
+        const filtered = users.filter((user: User) =>
             user.name.toLowerCase().includes(value.toLowerCase()) ||
             user.email.toLowerCase().includes(value.toLowerCase())
         );
@@ -44,7 +58,7 @@ export default function UserData() {
         setIsModalVisible(false);
     };
 
-    const guardarCambios = async (nuevoUsuario: any) => {
+    const guardarCambios = async (nuevoUsuario: User) => {
     console.log("Usuario guardado:", nuevoUsuario);
     setLoading(true);
     if (modalMode === "add") {
@@ -56,7 +70,7 @@ export default function UserData() {
         try {
         console.log(nuevoUsuario);
         
-        const response = await axios.patch(
+        await axios.patch(
             `http://localhost:3000/user/updateUser?id=${nuevoUsuario._id}`,
             nuevoUsuario
         );
@@ -72,7 +86,7 @@ export default function UserData() {
     }
 };
 
-    const agregarUsuario = async (nuevoUsuario: any) => {
+    const agregarUsuario = async (nuevoUsuario: User) => {
         console.log("Usuario guardado:", nuevoUsuario);
         setLoading(true);
         try {
