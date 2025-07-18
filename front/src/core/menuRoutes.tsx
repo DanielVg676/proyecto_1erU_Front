@@ -1,7 +1,10 @@
-import Dashboard from "../modules/dashboard/Dashboard";
+import DashBoard from "../modules/dashboard/dashboard";
+import Dashboard from "../modules/dashboard/MenuSideBar";
 import OrderData from "../modules/order/OrderData";
 import ProductData from "../modules/products/ProductData";
 import ReportData from "../modules/reports/ReportData";
+import LoginPage from "../modules/user/LoginPage";
+import UserData from "../modules/user/UserData";
 import UserForm from "../modules/user/UserForm";
 
 export interface AppRoute {
@@ -16,13 +19,13 @@ export interface AppRoute {
 const routes: AppRoute[] = [
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: <DashBoard />,
     label: 'Inicio',
     icon: 'HomeOutlined',
   },
   {
     path: '/users',
-    element: <UserForm />,
+    element: <UserData />,
     label: 'Usuarios',
     icon: 'UserOutlined',
   },
@@ -42,6 +45,12 @@ const routes: AppRoute[] = [
     path: '/reports',
     element: <ReportData />,
     label: 'Productos',
+    icon: 'UserOutlined',
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+    label: 'Login',
     icon: 'UserOutlined',
   },
 ]

@@ -1,23 +1,46 @@
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Dashboard from './modules/dashboard/Dashboard'
-import routes from './core/menuRoutes'
-import { useState } from 'react'
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MenuSideBar from './modules/dashboard/MenuSideBar';
+import routes from './core/menuRoutes'; // Este debe contener solo contenido, no layout
+import AuthRoutes from './auth/AuthRoutes';
+import { AuthProvider } from './auth/AuthContext';
+import LoginPage from './modules/user/LoginPage';
+import DashBoard from './modules/dashboard/dashboard';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />}>
-          {routes.map(route => (
-            <Route key={route.path} path={route.path.slice(1)} element={route.element} />
-          ))}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  )
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+
+          {/* Ruta pública */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Layout general para rutas privadas */}
+          <Route
+            path="/"
+            element={
+              <AuthRoutes>
+                <MenuSideBar />
+              </AuthRoutes>
+            }
+          >
+            {/* Rutas privadas dentro del layout */}
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path.slice(1)} // quita el "/" inicial
+                element={route.element}
+              />
+            ))}
+            {/* Ruta base (opcional) */}
+            <Route path='/dashboard' element={<DashBoard/>} />
+          </Route>
+
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
